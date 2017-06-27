@@ -3,6 +3,7 @@ import { WebView, LoadEventData } from 'ui/web-view';
 import { WebViewInterface } from 'nativescript-webview-interface';
 
 @Component({
+  moduleId: module.id,
   templateUrl: "web-view.component.html",
 })
 export class WebViewComponent implements AfterViewInit, OnDestroy {
@@ -65,6 +66,7 @@ export class WebViewComponent implements AfterViewInit, OnDestroy {
 
     // loading languages in dropdown, on load of webView.
     webView.on(WebView.loadFinishedEvent, (args: LoadEventData) => {
+      console.log("NS: args.url="+args.url+" args.error="+args.error);
       if (!args.error) {
         this.loadLanguagesInWebView();
       }
@@ -77,6 +79,7 @@ export class WebViewComponent implements AfterViewInit, OnDestroy {
    * Sends initial list of languages to webView, once it is loaded.
    */
   private loadLanguagesInWebView() {
+    console.log("NS: loadLanguagesInWebView()");
     this.oLangWebViewInterface.emit('loadLanguages', this.lstLanguages);
   }
 
